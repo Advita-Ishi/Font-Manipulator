@@ -1,3 +1,7 @@
+difference=0;
+rightWristX=0;
+leftWristX=0;
+
 function preload() {
 
 }
@@ -13,16 +17,39 @@ function setup() {
     poseNet.on('pose', gotPose);
 }
 
-function draw() {
-   background('#FFC3C3');
-}
-
 function modelLoaded() {
-    console.log('PoseNet is initialised.s')
+    console.log('PoseNet is initialised!')
 }
  
 function gotPose(result) {
     if(result.length > 0) {
         console.log(result);
+        leftWristX = result[0].pose.leftWrist.x;
+        rightWristX = result[0].pose.rightWrist.x;
+        console.log("rightWristX = " + rightWristX + " " + "leftWristX = " + leftWristX);
+
+        difference = floor(leftWristX - rightWristX)
     }
 }
+
+function draw() {
+   background('#FFC3C3');
+   fill('#FFFFFF');
+   textSize(difference);
+   text('Notice Board', 50, 200);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
